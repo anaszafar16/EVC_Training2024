@@ -10,8 +10,10 @@ def main(page):
     soup = BeautifulSoup(src, "lxml")
     matches_details = []
 
+    # Find all the championships card
     championships = soup.find_all("div", {'class': 'matchCard'})
 
+    #this function will get the details of each match
     def get_match_info(championship):
         championship_title = championship.find('a', {'class': 'tourTitle'}).text.strip()
         all_matches = championship.find_all('div', {'class': 'item'})
@@ -34,6 +36,7 @@ def main(page):
                 "match_time": match_time
             })
 
+    # get the details of each match for each championship and then save it in a csv file
     for championship in championships:
         get_match_info(championship)
 
@@ -44,7 +47,7 @@ def main(page):
             dict_writer = csv.DictWriter(output_file, keys)
             dict_writer.writeheader()
             dict_writer.writerows(matches_details)
-    else:
+    else: # this part shows if no matches were found for the given date or if the (date is invalid) 
         print("No matches found for the given date.")
 
 main(page)
