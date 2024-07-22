@@ -1,0 +1,6 @@
+streamlit
+opencv-python-headless
+pygame
+YOLO
+cvzone
+math
